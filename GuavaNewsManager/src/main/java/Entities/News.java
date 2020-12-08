@@ -1,17 +1,19 @@
 package Entities;
 
 public class News {
-    private String author;
+    private Publisher author;
     private String content;
-    private String topic;
+    private Topic topic;
+    private int numberOfReads;
 
-    public News(String author, String content, String topic) {
+    public News(Publisher author, String content, Topic topic) {
         this.author = author;
         this.content = content;
         this.topic = topic;
+        this.numberOfReads = 0;
     }
 
-    public String getAuthor() {
+    public Publisher getAuthor() {
         return author;
     }
 
@@ -19,11 +21,21 @@ public class News {
         return content;
     }
 
-    public String getTopic() {
+    public Topic getTopic() {
         return topic;
     }
 
     public void setContent(String content) {
         this.content = content;
     }
+
+    public void read(){
+        numberOfReads++;
+    }
+
+    public int getNumberOfReads(){
+        return  numberOfReads;
+    }
 }
+
+

@@ -1,28 +1,31 @@
 package Entities;
 
-import Events.NewsReadEvent;
-import Events.NewsReceivedEvent;
-import com.google.common.eventbus.Subscribe;
+import Listeners.*;
+import com.google.common.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Reader {
     private String name;
-    private String topicOfInterest;
+    private List<ReaderListener> listeners;
 
-    public Reader(String name, String topicOfInterest) {
+    public Reader(String name, List<Topic> topicsOfInterest, EventBus bus) {
         this.name = name;
-        this.topicOfInterest = topicOfInterest;
-        BusManager.getInstance().subscribe(this);
+        this.listeners = new ArrayList<>();
+
+        for (Topic topic : topicsOfInterest) {
+            registerSubscriber(topic, bus);
+        }
     }
 
-    @Subscribe
-    private void receiveNews(NewsReceivedEvent event) {
-        NewsReadEvent readEvent = new NewsReadEvent(event.getNews());
-
-        System.out.println(this.name + " a citit stirea: "+event.getNews().getContent());
-        BusManager.getInstance().postEvent(readEvent);
-    }
-
-    public String getTopicOfInterest() {
-        return topicOfInterest;
+    private void registerSubscriber(Topic topic, EventBus bus){
+        switch (topic){
+            case Sports: listeners.add(new SportsNewsListener(this.name, bus)); break;
+            case Science: listeners.add(new ScienceNewsListener(this.name, bus)); break;
+            case Health: listeners.add(new HealthNewsListener(this.name, bus)); break;
+            case Technology: listeners.add(new TechnologyNewsListener(this.name, bus)); break;
+            case Medicine: listeners.add(new MedicineNewsListener(this.name, bus)); break;
+        }
     }
 }
