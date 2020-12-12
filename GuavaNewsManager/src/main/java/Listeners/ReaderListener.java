@@ -18,11 +18,7 @@ public abstract class ReaderListener {
         news.read();
         System.out.println(readerName + " a citit: " + news.getContent());
 
-        bus.register(news.getAuthor());
-
         NewsReadEvent readEvent = new NewsReadEvent(news);
         bus.post(readEvent);
-
-        bus.unregister(news.getAuthor());
     }
 }

@@ -1,7 +1,7 @@
 package Entities;
 
 public class News {
-    private Publisher author;
+    private String author;
     private String content;
     private Topic topic;
     private int numberOfReads;

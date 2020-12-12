@@ -13,6 +13,7 @@ public class Publisher {
     public Publisher(String name, EventBus bus) {
         this.name = name;
         this.bus = bus;
+        bus.register(this.name);
     }
 
     public News createNews(String content, Topic topic) {
@@ -56,6 +57,8 @@ public class Publisher {
     @Subscribe
     private void newsReadEvent(NewsReadEvent event) {
         News newsRead = event.getNews();
-        System.out.println(this.name + " stirea ta: " + newsRead.getContent() + " a fost citita de " + newsRead.getNumberOfReads() + " ori.");
+        if (newsRead.getAuthor().equals(this.name)) {
+            System.out.println(this.name + " stirea ta: " + newsRead.getContent() + " a fost citita de " + newsRead.getNumberOfReads() + " ori.");
+        }
     }
 }
