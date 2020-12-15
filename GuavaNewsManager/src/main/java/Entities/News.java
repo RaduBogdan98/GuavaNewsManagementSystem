@@ -6,14 +6,14 @@ public class News {
     private Topic topic;
     private int numberOfReads;
 
-    public News(Publisher author, String content, Topic topic) {
+    public News(String author, String content, Topic topic) {
         this.author = author;
         this.content = content;
         this.topic = topic;
         this.numberOfReads = 0;
     }
 
-    public Publisher getAuthor() {
+    public String getAuthor() {
         return author;
     }
 

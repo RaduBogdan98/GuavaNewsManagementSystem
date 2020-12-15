@@ -13,11 +13,11 @@ public class Publisher {
     public Publisher(String name, EventBus bus) {
         this.name = name;
         this.bus = bus;
-        bus.register(this.name);
+        bus.register(this);
     }
 
     public News createNews(String content, Topic topic) {
-        News news = new News(this, content, topic);
+        News news = new News(this.name, content, topic);
         postNews(news);
 
         return news;
